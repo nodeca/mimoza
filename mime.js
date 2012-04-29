@@ -27,6 +27,15 @@ function Mime(options) {
     this.normalize    = options.normalize || normalize;
     this.default_type = options.defaultType;
   }
+
+  if (options.loadBuiltins) {
+    // Load local copy of
+    // http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
+    this.load(path.join(__dirname, 'types/mime.types'));
+
+    // Load additional types from node.js community
+    this.load(path.join(__dirname, 'types/node.types'));
+  }
 }
 
 /**
@@ -100,20 +109,13 @@ Mime.prototype.extension = function(mimeType) {
 
 // Default instance
 var mime = new Mime({
-  defaultType: 'application/octet-stream',
-  normalize:   function (ext) {
+  loadBuiltins: true,
+  defaultType:  'application/octet-stream',
+  normalize:    function (ext) {
     // backward-compatible normalizer
     return ext.replace(/.*[\.\/]/, '').toLowerCase();
   }
 });
-
-
-// Load local copy of
-// http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
-mime.load(path.join(__dirname, 'types/mime.types'));
-
-// Load additional types from node.js community
-mime.load(path.join(__dirname, 'types/node.types'));
 
 
 //

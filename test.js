@@ -2,7 +2,7 @@
  * Usage: node test.js
  */
 
-var mime = require('./mime');
+var mime = require('./lib/mimoza');
 var assert = require('assert');
 
 function eq(a, b) {
@@ -10,60 +10,33 @@ function eq(a, b) {
   assert.strictEqual.apply(null, arguments);
 }
 
-console.log(Object.keys(mime.extensions).length + ' types');
-console.log(Object.keys(mime.types).length + ' extensions\n');
-
 //
-// Test mime lookups
+// Test mime getMimeTypes
 //
 
-eq('text/plain', mime.lookup('text.txt'));
-eq('text/plain', mime.lookup('.text.txt'));
-eq('text/plain', mime.lookup('.txt'));
-eq('text/plain', mime.lookup('txt'));
-eq('application/octet-stream', mime.lookup('text.nope'));
-eq('fallback', mime.lookup('text.fallback', 'fallback'));
-eq('application/octet-stream', mime.lookup('constructor'));
-eq('text/plain', mime.lookup('TEXT.TXT'));
-eq('text/event-stream', mime.lookup('text/event-stream'));
+eq('text/plain', mime.getMimeType('text.txt'));
+eq('text/plain', mime.getMimeType('.text.txt'));
+eq('text/plain', mime.getMimeType('.txt'));
+eq('text/plain', mime.getMimeType('txt'));
+eq('application/octet-stream', mime.getMimeType('text.nope'));
+eq('fallback', mime.getMimeType('text.fallback', 'fallback'));
+eq('application/octet-stream', mime.getMimeType('constructor'));
+eq('text/plain', mime.getMimeType('TEXT.TXT'));
+eq('text/event-stream', mime.getMimeType('text/event-stream'));
 
 //
-// Test extensions
+// Test getExtensions
 //
 
-eq('txt', mime.extension(mime.types.text));
-eq('html', mime.extension(mime.types.htm));
-eq('bin', mime.extension('application/octet-stream'));
-eq(undefined, mime.extension('constructor'));
+eq('.html', mime.getExtension(mime.getMimeType('htm')));
+eq('.bin', mime.getExtension('application/octet-stream'));
+eq(undefined, mime.getExtension('constructor'));
 
 //
 // Test node types
 //
 
-eq('application/octet-stream', mime.lookup('file.buffer'));
-eq('audio/mp4', mime.lookup('file.m4a'));
-
-//
-// Test charsets
-//
-
-eq('UTF-8', mime.charsets.lookup('text/plain'));
-eq(undefined, mime.charsets.lookup(mime.types.js));
-eq('fallback', mime.charsets.lookup('application/octet-stream', 'fallback'));
-
-
-//
-// Test custom mime types
-//
-
-var myMime = new (mime.Mime)('foobar');
-
-myMime.load(__dirname + '/types/mime.types');
-myMime.load(__dirname + '/types/node.types');
-
-eq('.txt', myMime.extension(myMime.types['.text']));
-eq('.bin', myMime.extension('application/octet-stream'));
-eq('text/plain', myMime.lookup('.txt'));
-eq('text/plain', myMime.lookup('txt'));
+eq('application/octet-stream', mime.getMimeType('file.buffer'));
+eq('audio/mp4', mime.getMimeType('file.m4a'));
 
 console.log('\nOK');

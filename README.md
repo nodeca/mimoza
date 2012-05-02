@@ -37,4 +37,4 @@ mime.getMimeType('tada', 'soft/core');  // -> 'soft/core'
 
 See the [API][1] docs for details.
 
-[1]: http://ixti.github.com/mimoza
+[1]: http://nodeca.github.com/mimoza

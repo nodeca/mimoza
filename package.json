@@ -3,7 +3,7 @@
   "version"         : "0.1.0",
   "description"     : "Simple mime-type map library",
   "keywords"        : ["mime"],
-  "homepage"        : "https://github.com/ixti/mimoza",
+  "homepage"        : "https://github.com/nodeca/mimoza",
 
   "author"          : "Aleksey V Zapparov <ixti@member.fsf.org> (http://ixti.net/)",
   "contributors"    : [
@@ -19,9 +19,9 @@
                         }
                       ],
 
-  "bugs"            : { "url": "https://github.com/ixti/mimoza/issues" },
-  "license"         : { "type": "MIT", "url": "https://github.com/ixti/mimoza/blob/master/LICENSE" },
-  "repository"      : { "type": "git", "url": "git://github.com/ixti/mimoza.git" },
+  "bugs"            : { "url": "https://github.com/nodeca/mimoza/issues" },
+  "license"         : { "type": "MIT", "url": "https://github.com/nodeca/mimoza/blob/master/LICENSE" },
+  "repository"      : { "type": "git", "url": "git://github.com/nodeca/mimoza.git" },
 
   "main"            : "./lib/mimoza.js",
 

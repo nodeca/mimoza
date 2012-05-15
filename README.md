@@ -1,5 +1,7 @@
 # Mimoza
 
+[![Build Status](https://secure.travis-ci.org/nodeca/mimoza.png?branch=master)](http://travis-ci.org/nodeca/mimoza)
+
 Mimoza is a tiny mime map library. It's a spin-off of the original [mime][1]
 Node module, and happened due to need of some extra features.
 

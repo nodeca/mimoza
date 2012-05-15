@@ -1,6 +1,6 @@
 {
   "name"            : "mimoza",
-  "version"         : "0.0.1",
+  "version"         : "0.1.0",
   "description"     : "Simple mime-type map library",
   "keywords"        : ["mime"],
   "homepage"        : "https://github.com/ixti/mimoza",

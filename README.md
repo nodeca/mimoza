@@ -30,7 +30,7 @@ var mime = new Mimoza({
 
 
 mime.register('foo/bar', ['baz', 'moo']);
-mime.getExtension('foo/bar');           // -> '[baz]'
+mime.getExtension('foo/bar');           // -> '.baz'
 mime.getMimeType('baz');                // -> 'foo/bar'
 mime.getMimeType('[baz]');              // -> 'foo/bar'
 mime.getMimeType('tada');               // -> 'hard/core'

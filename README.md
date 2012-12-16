@@ -5,7 +5,7 @@
 Mimoza is a tiny mime map library. It's a spin-off of the original [mime][1]
 Node module, and happened due to need of some extra features.
 
-[1]: https://github.com/bentomas/node-mime
+[1]: https://github.com/broofa/node-mime
 
 
 ## Usage overview

@@ -4,11 +4,11 @@
 'use strict';
 
 
-var eq      = require('assert').strictEqual;
+var assert  = require('assert');
 var path    = require('path');
 
 var Mimoza  = require('../lib/mimoza');
-
+var eq      = assert.strictEqual;
 
 describe('defaults', function () {
 
@@ -105,9 +105,12 @@ describe('node.types check', function () {
   var m = Mimoza;
 
   it('check that some mimes loaded', function () {
-    eq('font/opentype', m.getMimeType('file.otf'));
+    // some random types checks
     eq('application/octet-stream', m.getMimeType('file.buffer'));
     eq('audio/mp4', m.getMimeType('file.m4a'));
+
+    // node.types definition should overrides apache's defalut
+    eq('font/opentype', m.getMimeType('file.otf'));
   });
 
 });
@@ -115,9 +118,12 @@ describe('node.types check', function () {
 
 describe('integrity check', function () {
 
-  it.skip('apache.types & note.types should not overlap', function () {
+  var m = Mimoza;
+
+  it('apache.types & note.types extentions should not overlap', function () {
     var apacheTypes = new Mimoza()
-      , nodeTypes = new Mimoza();
+      , nodeTypes = new Mimoza()
+      , validExtOverrides = ['.otf'];
 
     apacheTypes.loadFile(path.join(__dirname, '../types/mime.types'));
     nodeTypes.loadFile(path.join(__dirname, '../types/node.types'));
@@ -128,11 +134,18 @@ describe('integrity check', function () {
 
     for (var i = 1; i < keys.length; i++) {
       if (keys[i] === keys[i-1]) {
-        console.warn('Warning: ' +
-          'node.types defines ' + keys[i] + '->' + nodeTypes.types[keys[i]] +
-          ', mime.types defines ' + keys[i] + '->' + apacheTypes.types[keys[i]]);
+        assert.notEqual(-1, validExtOverrides.indexOf(keys[i]),
+          '`' + keys[i] + '` from `mime.types` is overriden in `node.types`! Remove duplicated definitions.'
+        );
       }
     }
+  });
+
+
+  it('text/cache-manifest should be merged', function () {
+    eq('text/cache-manifest', m.getMimeType('appcache'));
+    eq('text/cache-manifest', m.getMimeType('manifest'));
+    eq('.appcache', m.getExtension('text/cache-manifest'));
   });
 
 });

@@ -19,6 +19,6 @@
   "main"            : "./lib/mimoza.js",
 
   "devDependencies" : {
-                        "mocha"   : "*",
+                        "mocha"   : "*"
                       }
 }

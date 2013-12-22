@@ -22,8 +22,14 @@ describe('defaults', function () {
     eq('text/plain', m.getMimeType('dir/text.txt'));
     eq('text/plain', m.getMimeType('dir\\ext.txt'));
     eq('text/plain', m.getMimeType('txt'));
-    //eq('text/plain', m.getMimeType('/txt'));
-    //eq('text/plain', m.getMimeType('\\txt'));
+  });
+
+
+  it.skip('unresolvable extention', function () {
+    eq(undefined, m.getMimeType('/txt'));
+    eq(undefined, m.getMimeType('\\txt'));
+    eq(undefined, m.getMimeType('dir/txt'));
+    eq(undefined, m.getMimeType('dir\\txt'));
   });
 
 

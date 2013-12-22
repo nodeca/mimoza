@@ -7,16 +7,9 @@
 
   "author"          : "Aleksey V Zapparov <ixti@member.fsf.org> (http://ixti.net/)",
   "contributors"    : [
-                        {
-                          "name": "Robert Kieffer",
-                          "url": "http://github.com/broofa",
-                          "email": "robert@broofa.com"
-                        },
-                        {
-                          "name": "Benjamin Thomas",
-                          "url": "http://github.com/bentomas",
-                          "email": "benjamin@benjaminthomas.org"
-                        }
+                        "Vitaly Puzrin <vitaly@rcdesign.ru> (https://github.com/puzrin)",
+                        "Robert Kieffer <robert@broofa.com> (https://github.com/broofa)",
+                        "Benjamin Thomas <benjamin@benjaminthomas.org> (https://github.com/bentomas)"
                       ],
 
   "bugs"            : { "url": "https://github.com/nodeca/mimoza/issues" },
@@ -25,5 +18,8 @@
 
   "main"            : "./lib/mimoza.js",
 
-  "engines"         : { "node": ">= 0.6.0" }
+  "devDependencies" : {
+                        "mocha"   : "*",
+                        "chai"    : "*"
+                      }
 }

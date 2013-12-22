@@ -34,6 +34,7 @@ lint:
 
 
 test: lint
+	mocha
 
 
 doc:

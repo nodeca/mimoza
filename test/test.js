@@ -61,32 +61,22 @@ describe('defaults', function () {
 
 describe('custom instance', function () {
 
-  var m = new Mimoza({
-    defaultType:  'hard/core',
-    normalize:    function (ext) {
-                    return '[' + ext.toLowerCase() + ']';
-                  }
-  });
+  var m = new Mimoza({ defaultType:  'hard/core' });
 
   m.register('foo/bar', ['baz', 'moo']);
 
 
-  it('custom extention normalizer', function () {
-    eq('[baz]', m.getExtension('foo/bar'));
-  });
-
   it('resolve registered', function () {
-    //eq('foo/bar', m.getMimeType('.baz'));
-    //eq('foo/bar', m.getMimeType('/.baz'));
-    //eq('foo/bar', m.getMimeType('fee.baz'));
-    //eq('foo/bar', m.getMimeType('foo/fee.baz'));
-    //eq('foo/bar', m.getMimeType('foo\\fee.baz'));
-    //eq('foo/bar', m.getMimeType('.baz'));
+    eq('foo/bar', m.getMimeType('.baz'));
+    eq('foo/bar', m.getMimeType('/.baz'));
+    eq('foo/bar', m.getMimeType('fee.baz'));
+    eq('foo/bar', m.getMimeType('foo/fee.baz'));
+    eq('foo/bar', m.getMimeType('foo\\fee.baz'));
+    eq('foo/bar', m.getMimeType('.baz'));
     eq('foo/bar', m.getMimeType('BaZ'));
     eq('foo/bar', m.getMimeType('moo'));
+    eq('.baz', m.getExtension('foo/bar'));
   });
-
-  //mime.getMimeType('[baz]');              // -> 'foo/bar'
 
   it.skip('default mime for unknown extention', function () {
     eq('hard/core', m.getMimeType('tada'));

@@ -57,9 +57,9 @@ describe('defaults', function () {
   });
 
 
-  it('mimes are case sensitive', function() {
-    eq('.html', m.getExtension('text/html'));
-    eq(undefined, m.getExtension('text/Html'));
+  it('mimes are case insensitive', function() {
+    eq('.html', m.getExtension('text/Html'));
+    eq('.txt', m.getExtension('tExt/plaiN'));
   });
 
 });

@@ -27,8 +27,8 @@ describe('defaults', function () {
   });
 
 
-  it.skip('default mime for unknown extention', function () {
-    eq('application/octet-stream', m.getMimeType('text.nope'));
+  it('no default mime for unknown extention', function () {
+    eq(undefined, m.getMimeType('text.nope'));
   });
 
 
@@ -78,7 +78,7 @@ describe('custom instance', function () {
     eq('.baz', m.getExtension('foo/bar'));
   });
 
-  it.skip('default mime for unknown extention', function () {
+  it('default mime for unknown extention', function () {
     eq('hard/core', m.getMimeType('tada'));
   });
 

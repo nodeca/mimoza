@@ -120,21 +120,29 @@ describe('compressibles', function () {
   var m = Mimoza;
 
   it('resolve compressible mimes', function () {
-    eq(true, m.isCompressibleMimeType('text/html'));
-    eq(true, m.isCompressibleMimeType(' text/hTml; charset=UTF-8 '));
-    eq(true, m.isCompressibleMimeType('application/javascript'));
-    eq(false, m.isCompressibleMimeType('application/octet-stream'));
-  });
-
-
-  it('resolve compressible extentions', function () {
-    eq(true, m.isCompressibleExtention('txt'));
-    eq(true, m.isCompressibleExtention('.html'));
-    eq(true, m.isCompressibleExtention('js'));
-    eq(false, m.isCompressibleExtention('.bin'));
+    eq(true, m.isCompressible('text/html'));
+    eq(true, m.isCompressible(' text/hTml; charset=UTF-8 '));
+    eq(true, m.isCompressible('application/javascript'));
+    eq(false, m.isCompressible('application/octet-stream'));
   });
 
 });
+
+
+describe('text detect', function () {
+
+  var m = Mimoza;
+
+  it('check if mime type provides text content', function () {
+    eq(true, m.isText('text/html'));
+    eq(true, m.isText(' text/hTml; charset=UTF-8 '));
+    eq(true, m.isText('application/javascript'));
+    eq(true, m.isText('application/json'));
+    eq(false, m.isText('application/octet-stream'));
+  });
+
+});
+
 
 describe('integrity check', function () {
 

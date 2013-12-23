@@ -1,3 +1,12 @@
+0.3.0 / 2013-12-24
+------------------
+
+- Simplified API.
+- Removed is `isCompressibleExtention()`.
+- Renamed `isCompressibleMimeType()` to `isCompressible()`.
+- Added `isText()` method.
+
+
 0.2.0 / 2013-12-24
 ------------------
 

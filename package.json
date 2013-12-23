@@ -1,7 +1,7 @@
 {
   "name"            : "mimoza",
   "version"         : "0.1.1",
-  "description"     : "Simple mime-type map library",
+  "description"     : "Simple mime-types tools library",
   "keywords"        : ["mime"],
   "homepage"        : "https://github.com/nodeca/mimoza",
 
@@ -20,5 +20,8 @@
 
   "devDependencies" : {
                         "mocha"   : "*"
+                      },
+  "browser"         : {
+                        "./lib/rules.js": "./lib/rules_browser.js"
                       }
 }

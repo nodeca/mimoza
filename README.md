@@ -10,15 +10,23 @@ but e bit more flexible. Features:
 - Finding file extention by mime type.
 - Checking if mime type (or file) can be compressed.
 - You can have multimple instances with different configs.
+- Works in browser too (AMD module).
 
 See detailed [API docs](http://nodeca.github.com/mimoza).
 
 ## Installation
 
+for node.js:
+
 ```bash
 npm install mimoza
 ```
 
+for browser (AMD module):
+
+```bash
+bower install mimoza
+```
 
 ## Example
 

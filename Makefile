@@ -9,8 +9,7 @@ REMOTE_NAME ?= origin
 REMOTE_REPO ?= $(shell git config --get remote.${REMOTE_NAME}.url)
 
 CURR_HEAD   := $(firstword $(shell git show-ref --hash HEAD | cut --bytes=-6) master)
-GITHUB_PROJ := nodeca/${NPM_PACKAGE}
-SRC_URL_FMT := https://github.com/${GITHUB_PROJ}/blob/${CURR_HEAD}/{file}\#L{line}
+GITHUB_PROJ := https://github.com/nodeca/${NPM_PACKAGE}
 
 
 help:
@@ -35,6 +34,38 @@ lint:
 
 test: lint
 	mocha
+
+
+browserify:
+	rm -f ./types/*.small
+	# remove comments lines, replace spaces/specials with 1 ' ', then join into one string
+	cat ./types/mime.types | grep '^[^#]' | sed 's/\s\s*/ /g' | sed 's/$$/\\n/' | tr -d '\n' > ./types/mime.types.small
+	cat ./types/node.types | grep '^[^#]' | sed 's/\s\s*/ /g' | sed 's/$$/\\n/' | tr -d '\n' > ./types/node.types.small
+	cat ./types/compressible.types | grep '^[^#]' | sed 's/\s\s*/ /g' | sed 's/$$/\\n/' | tr -d '\n' > ./types/compressible.types.small
+	# join all to one json file
+	( echo -n '{"mimeTypes":"' ; \
+		cat ./types/mime.types.small ; \
+		echo -n '","nodeTypes":"' ; \
+		cat ./types/node.types.small ; \
+		echo -n '","compressibleTypes":"' ; \
+		cat ./types/compressible.types.small ; \
+		echo -n '"}' \
+		) > ./types/rules.json
+	# Browserify
+	( echo -n "/* ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} */" ; \
+		browserify -r ./ -s Mimoza \
+		) > mimoza_browser.js
+	# Cleanup
+	rm -f ./types/*.small
+	rm -f ./types/rules.json
+	# Minify
+	uglifyjs mimoza_browser.js -c -m \
+		--preamble "/* ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} */" \
+		> mimoza_browser.min.js
+	# Update bower package
+	sed -i -r -e \
+		"s/(\"version\":\s*)\"[0-9]+[.][0-9]+[.][0-9]+\"/\1\"${NPM_VERSION}\"/" \
+		bower.json
 
 
 doc:
@@ -72,7 +103,7 @@ gh-pages:
 		git commit -q -m 'Recreated docs'
 	cd ${TMP_PATH} && \
 		git remote add remote ${REMOTE_REPO} && \
-		git push --force remote +master:gh-pages 
+		git push --force remote +master:gh-pages
 	rm -rf ${TMP_PATH}
 
 
@@ -86,7 +117,7 @@ publish:
 		exit 128 ; \
 		fi
 	git tag ${NPM_VERSION} && git push origin ${NPM_VERSION}
-	npm publish https://github.com/${GITHUB_PROJ}/tarball/${NPM_VERSION}
+	npm publish ${GITHUB_PROJ}/tarball/${NPM_VERSION}
 
 
 todo:

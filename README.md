@@ -2,8 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/nodeca/mimoza.png?branch=master)](http://travis-ci.org/nodeca/mimoza)
 
-Mimoza is a tiny mime tools library. Similar to [mime](https://github.com/broofa/node-mime)
-but e bit more flexible. Features:
+Mimoza is a tiny but comprehensive MIME tools library. Features:
 
 - Resolving mime type by file path/name/extention (with fallback
   for unknown cases).

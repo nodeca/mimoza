@@ -57,7 +57,6 @@ browserify:
 		) > mimoza_browser.js
 	# Cleanup
 	rm -f ./types/*.small
-	rm -f ./types/rules.json
 	# Minify
 	uglifyjs mimoza_browser.js -c -m \
 		--preamble "/* ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} */" \

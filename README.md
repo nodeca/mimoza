@@ -2,13 +2,25 @@
 
 [![Build Status](https://secure.travis-ci.org/nodeca/mimoza.png?branch=master)](http://travis-ci.org/nodeca/mimoza)
 
-Mimoza is a tiny mime map library. It's a spin-off of the original [mime][1]
-Node module, and happened due to need of some extra features.
+Mimoza is a tiny mime tools library. Similar to [mime](https://github.com/broofa/node-mime)
+but e bit more flexible. Features:
 
-[1]: https://github.com/broofa/node-mime
+- Resolving mime type by file path/name/extention (with fallback
+  for unknown cases).
+- Finding file extention by mime type.
+- Checking if mime type (or file) can be compressed.
+- You can have multimple instances with different configs.
+
+See detailed [API docs](http://nodeca.github.com/mimoza).
+
+## Installation
+
+```bash
+npm install mimoza
+```
 
 
-## Usage overview
+## Example
 
 ``` javascript
 var Mimoza = require('mimoza');
@@ -20,23 +32,21 @@ Mimoza.getMimeType('.oga');             // -> 'audio/ogg'
 Mimoza.getMimeType('test.oga');         // -> 'audio/ogg'
 Mimoza.getMimeType('foo/bar.oga');      // -> 'audio/ogg'
 
-// Define your own map
+
+// Define your own instance
 var mime = new Mimoza({
-  normalize: function (ext) {
-    return '[' + ext.toLowerCase() + ']';
-  },
-  defaultType: 'hard/core'
+  defaultType: 'hard/core', // mime type for unknown extentions
+  preloaded: true           // load default rules
 });
 
-
+// instances are customizeable
 mime.register('foo/bar', ['baz', 'moo']);
+
 mime.getExtension('foo/bar');           // -> '.baz'
 mime.getMimeType('baz');                // -> 'foo/bar'
-mime.getMimeType('[baz]');              // -> 'foo/bar'
+mime.getMimeType('moo');                // -> 'foo/bar'
+
+// unknown file types, with default & custom fallback
 mime.getMimeType('tada');               // -> 'hard/core'
 mime.getMimeType('tada', 'soft/core');  // -> 'soft/core'
 ```
-
-See the [API][2] docs for details.
-
-[2]: http://nodeca.github.com/mimoza

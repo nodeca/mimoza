@@ -1,6 +1,6 @@
 {
   "name"            : "mimoza",
-  "version"         : "0.2.0",
+  "version"         : "0.3.0",
   "description"     : "Simple mime-types tools library",
   "keywords"        : ["mime"],
   "homepage"        : "https://github.com/nodeca/mimoza",

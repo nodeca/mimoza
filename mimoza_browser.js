@@ -1,4 +1,4 @@
-/* mimoza 0.2.0 https://github.com/nodeca/mimoza */!function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Mimoza=e():"undefined"!=typeof global?global.Mimoza=e():"undefined"!=typeof self&&(self.Mimoza=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+/* mimoza 0.3.0 https://github.com/nodeca/mimoza */!function(e){"object"==typeof exports?module.exports=e():"function"==typeof define&&define.amd?define(e):"undefined"!=typeof window?window.Mimoza=e():"undefined"!=typeof global?global.Mimoza=e():"undefined"!=typeof self&&(self.Mimoza=e())}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 
@@ -211,24 +211,29 @@ Mimoza.prototype.getExtension = function getExtension(mimeType) {
 
 
 /**
- *  Mimoza#isCompressibleMimeType(mimeType) -> Boolean
+ *  Mimoza#isCompressible(mimeType) -> Boolean
  *
  *  Check if mime type is compressible with gzip/deflate.
  **/
-Mimoza.prototype.isCompressibleMimeType = function isCompressibleMimeType(mimeType) {
+Mimoza.prototype.isCompressible = function isCompressible(mimeType) {
   return !!this.compressibles[clearMime(mimeType)];
 };
 
 
+// Returns whenever an asset is text or not
+var TEXT_MIME_RE = new RegExp([
+  '^text/',
+  '/json$',
+  '/javascript$'
+].join('|'));
+
 /**
- *  Mimoza#isCompressibleExtention(path) -> Boolean
+ *  Mimoza#isText(mimeType) -> Boolean
  *
- *  Check if file extension is compressible with gzip/deflate.
+ *  Check if mime type provides text content. Can be used to add encoding.
  **/
-Mimoza.prototype.isCompressibleExtention = function isCompressibleExtention(path) {
-  var mime = this.getMimeType(path, -1);
-  if (mime === -1) { return false; }
-  return this.isCompressibleMimeType(mime);
+Mimoza.prototype.isText = function isText(mimeType) {
+  return TEXT_MIME_RE.test(clearMime(mimeType));
 };
 
 
@@ -263,23 +268,23 @@ Mimoza.getExtension = function _getExtension(mimeType) {
 };
 
 /**
- *  Mimoza.isCompressibleMimeType(mimeType) -> Boolean
+ *  Mimoza.isCompressible(mimeType) -> Boolean
  *
- *  Proxy to [[Mimoza#isCompressibleMimeType]] of internal, built-in instance
+ *  Proxy to [[Mimoza#isCompressible]] of internal, built-in instance
  *  of [[Mimoza]] filled with some default types.
  **/
-Mimoza.isCompressibleMimeType = function _isCompressibleMimeType(mimeType) {
-  return builtin.isCompressibleMimeType(mimeType);
+Mimoza.isCompressible = function _isCompressible(mimeType) {
+  return builtin.isCompressible(mimeType);
 };
 
 /**
- *  Mimoza.isCompressibleExtention(path) -> Boolean
+ *  Mimoza.isText(mimeType) -> Boolean
  *
- *  Proxy to [[Mimoza#isCompressibleExtention]] of internal, built-in instance
- *  of [[Mimoza]] filled with some default types.
+ *  Proxy to [[Mimoza#isText]] of internal, built-in instance
+ *  of [[Mimoza]].
  **/
-Mimoza.isCompressibleExtention = function _isCompressibleExtention(path, fallback) {
-  return builtin.isCompressibleExtention(path, fallback);
+Mimoza.isText = function _isCompressibleExtention(mimeType) {
+  return builtin.isText(mimeType);
 };
 
 },{"./rules":2}],2:[function(require,module,exports){

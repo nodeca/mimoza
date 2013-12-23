@@ -8,6 +8,7 @@ Mimoza is a tiny but comprehensive MIME tools library. Features:
   for unknown cases).
 - Finding file extention by mime type.
 - Checking if mime type (or file) can be compressed.
+- Checking if mime type has text content (if you wish to force UTF-8 encoding)
 - You can have multimple instances with different configs.
 - Works in browser too (AMD module).
 
@@ -41,11 +42,13 @@ Mimoza.getMimeType('.oga');             // -> 'audio/ogg'
 Mimoza.getMimeType('test.oga');         // -> 'audio/ogg'
 Mimoza.getMimeType('foo/bar.oga');      // -> 'audio/ogg'
 
-Mimoza.isCompressibleMimeType('text/html')                // -> true
-Mimoza.isCompressibleMimeType('application/octet-stream') // -> false
+Mimoza.isCompressible('text/html');                // -> true
+Mimoza.isCompressible('application/octet-stream'); // -> false
 
-Mimoza.isCompressibleExtention('txt')               // -> true
-Mimoza.isCompressibleExtention('kittens/photo.jpg') // -> false
+Mimoza.isText('text/html');                // -> true
+Mimoza.isText('application/javascript');   // -> true
+Mimoza.isText('application/json');         // -> true
+Mimoza.isText('application/octet-stream'); // -> false
 
 
 // Define your own instance

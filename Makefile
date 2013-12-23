@@ -61,7 +61,7 @@ browserify:
 	# Minify
 	uglifyjs mimoza_browser.js -c -m \
 		--preamble "/* ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} */" \
-		> mimoza_browser.min.js
+		-o mimoza_browser.min.js
 	# Update bower package
 	sed -i -r -e \
 		"s/(\"version\":\s*)\"[0-9]+[.][0-9]+[.][0-9]+\"/\1\"${NPM_VERSION}\"/" \
@@ -107,7 +107,8 @@ gh-pages:
 	rm -rf ${TMP_PATH}
 
 
-publish:
+publish: browserify
+	# run browserify to make sure that browserified version is in sync
 	@if test 0 -ne `git status --porcelain | wc -l` ; then \
 		echo "Unclean working tree. Commit or stash changes first." >&2 ; \
 		exit 128 ; \

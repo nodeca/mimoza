@@ -1,12 +1,12 @@
 0.2.0 / WIP
 -----------
 
-- API change. Instances are loaded with mimes by default.
-  Use `{ clean: true }` option/property for old behaviour.
+- API enchance.
+- Added `preloaded` option , to init instances with default mime rules.
+- Removed `normalize` option.
 - Sync node.types with nodeca-mime.
 - getExtention() now case insensitive.
 - getMimeType() now accept typed mimes & mimes with charset.
-- Removed `normalize` option.
 - Added tests.
 
 

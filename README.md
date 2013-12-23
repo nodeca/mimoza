@@ -25,15 +25,24 @@ npm install mimoza
 ``` javascript
 var Mimoza = require('mimoza');
 
-// Use builtin mime types:
+// Use builtin methods:
+
 Mimoza.getExtension('audio/ogg');       // -> '.oga'
+
 Mimoza.getMimeType('ogg');              // -> 'audio/ogg'
 Mimoza.getMimeType('.oga');             // -> 'audio/ogg'
 Mimoza.getMimeType('test.oga');         // -> 'audio/ogg'
 Mimoza.getMimeType('foo/bar.oga');      // -> 'audio/ogg'
 
+Mimoza.isCompressibleMimeType('text/html')                // -> true
+Mimoza.isCompressibleMimeType('application/octet-stream') // -> false
+
+Mimoza.isCompressibleExtention('txt')               // -> true
+Mimoza.isCompressibleExtention('kittens/photo.jpg') // -> false
+
 
 // Define your own instance
+
 var mime = new Mimoza({
   defaultType: 'hard/core', // mime type for unknown extentions
   preloaded: true           // load default rules

@@ -6,6 +6,7 @@
 
 var assert  = require('assert');
 var path    = require('path');
+var fs      = require('fs');
 
 var Mimoza  = require('../lib/mimoza');
 var eq      = assert.strictEqual;
@@ -54,6 +55,8 @@ describe('defaults', function () {
     eq('.html', m.getExtension('text/html ; charset=UTF-8'));
     eq('.html', m.getExtension('text/html;charset=UTF-8'));
     eq(undefined, m.getExtension('unrecognized'));
+    eq(undefined, m.getExtension(null));
+    eq(undefined, m.getExtension({}));
   });
 
 
@@ -112,6 +115,27 @@ describe('node.types check', function () {
 });
 
 
+describe('compressibles', function () {
+
+  var m = Mimoza;
+
+  it('resolve compressible mimes', function () {
+    eq(true, m.isCompressibleMimeType('text/html'));
+    eq(true, m.isCompressibleMimeType(' text/hTml; charset=UTF-8 '));
+    eq(true, m.isCompressibleMimeType('application/javascript'));
+    eq(false, m.isCompressibleMimeType('application/octet-stream'));
+  });
+
+
+  it('resolve compressible extentions', function () {
+    eq(true, m.isCompressibleExtention('txt'));
+    eq(true, m.isCompressibleExtention('.html'));
+    eq(true, m.isCompressibleExtention('js'));
+    eq(false, m.isCompressibleExtention('.bin'));
+  });
+
+});
+
 describe('integrity check', function () {
 
   var m = Mimoza;
@@ -121,8 +145,8 @@ describe('integrity check', function () {
       , nodeTypes = new Mimoza()
       , validExtOverrides = ['.otf'];
 
-    apacheTypes.loadFile(path.join(__dirname, '../types/mime.types'));
-    nodeTypes.loadFile(path.join(__dirname, '../types/node.types'));
+    apacheTypes.loadMimes(fs.readFileSync(path.join(__dirname, '../types/mime.types'), 'ascii'));
+    nodeTypes.loadMimes(fs.readFileSync(path.join(__dirname, '../types/node.types'), 'ascii'));
 
     var keys = [].concat(Object.keys(apacheTypes.types))
                  .concat(Object.keys(nodeTypes.types));

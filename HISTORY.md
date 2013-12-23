@@ -1,12 +1,15 @@
 0.2.0 / WIP
 -----------
 
-- API enchance.
+- API change.
 - Added `preloaded` option , to init instances with default mime rules.
 - Removed `normalize` option.
-- Sync node.types with nodeca-mime.
+- Changed `loadFile(name)` -> `loadMimes(String|Array)`.
+- Added `loadCompressibles()`, `isCompressibleMimeType()` &
+  `isCompressibleExtention()` methods.
 - getExtention() now case insensitive.
 - getMimeType() now accept typed mimes & mimes with charset.
+- Sync node.types with nodeca-mime.
 - Added tests.
 
 

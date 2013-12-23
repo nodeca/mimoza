@@ -26,7 +26,7 @@ describe('defaults', function () {
   });
 
 
-  it.skip('unresolvable extention', function () {
+  it('unresolvable extention', function () {
     eq(undefined, m.getMimeType('/txt'));
     eq(undefined, m.getMimeType('\\txt'));
     eq(undefined, m.getMimeType('dir/txt'));

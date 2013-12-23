@@ -1,5 +1,5 @@
-0.2.0 / WIP
------------
+0.2.0 / 2013-12-24
+------------------
 
 - API change.
 - Added `preloaded` option , to init instances with default mime rules.

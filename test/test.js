@@ -12,9 +12,7 @@ var eq      = assert.strictEqual;
 /*eslint-disable no-undefined*/
 
 describe('defaults', function () {
-
   var m = Mimoza;
-
 
   it('resolve mime by file name', function () {
     eq('text/plain', m.getMimeType('text.txt'));
@@ -69,7 +67,6 @@ describe('defaults', function () {
 
 
 describe('custom instance', function () {
-
   var m = new Mimoza({ defaultType:  'hard/core' });
 
   m.register('foo/bar', [ 'baz', 'moo' ]);
@@ -87,6 +84,7 @@ describe('custom instance', function () {
     eq('.baz', m.getExtension('foo/bar'));
   });
 
+
   it('default mime for unknown extention', function () {
     eq('hard/core', m.getMimeType('tada'));
   });
@@ -99,24 +97,19 @@ describe('custom instance', function () {
 });
 
 
-describe('node.types check', function () {
-
+describe('types check', function () {
   var m = Mimoza;
 
   it('check that some mimes loaded', function () {
-    // some random types checks
     eq('application/octet-stream', m.getMimeType('file.buffer'));
     eq('audio/mp4', m.getMimeType('file.m4a'));
-
-    // node.types definition should overrides apache's defalut
     eq('font/opentype', m.getMimeType('file.otf'));
+    eq('application/font-woff2', m.getMimeType('file.woff2'));
   });
-
 });
 
 
 describe('compressibles', function () {
-
   var m = Mimoza;
 
   it('resolve compressible mimes', function () {
@@ -125,12 +118,10 @@ describe('compressibles', function () {
     eq(true, m.isCompressible('application/javascript'));
     eq(false, m.isCompressible('application/octet-stream'));
   });
-
 });
 
 
 describe('text detect', function () {
-
   var m = Mimoza;
 
   it('check if mime type provides text content', function () {
@@ -140,5 +131,30 @@ describe('text detect', function () {
     eq(true, m.isText('application/json'));
     eq(false, m.isText('application/octet-stream'));
   });
+});
 
+
+describe('Misc', function () {
+
+  it('clone', function () {
+    var m1 = new Mimoza({ preloaded: true, defaultType: 'qwerty/uiop' });
+
+    var m2 = m1.clone();
+
+    eq(m2.defaultType, 'qwerty/uiop');
+    eq(m2.isText('text/html'), true);
+    eq(m2.isCompressible('application/javascript'), true);
+    eq(m2.getMimeType('file.otf'), 'font/opentype');
+  });
+
+  it('override', function () {
+    var m = new Mimoza();
+
+    m.register('test-mime', '.test');
+    eq(m.getExtension('test-mime'), '.test');
+    m.register('test-mime', '.test2');
+    eq(m.getExtension('test-mime'), '.test');
+    m.register('test-mime', '.test2', true);
+    eq(m.getExtension('test-mime'), '.test2');
+  });
 });

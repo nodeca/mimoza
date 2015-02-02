@@ -5,6 +5,21 @@
 var db = require('mime-db');
 
 
+// Merge objects
+//
+function assign(obj /*from1, from2, from3, ...*/) {
+  var sources = Array.prototype.slice.call(arguments, 1);
+
+  sources.forEach(function (source) {
+    Object.keys(source).forEach(function (key) {
+      obj[key] = source[key];
+    });
+  });
+
+  return obj;
+}
+
+
 // leaves only extension from the given string
 //   normalize('foo/bar.js')  // -> '.js'
 //   normalize('bar.js')      // -> '.js'
@@ -73,28 +88,18 @@ var Mimoza = module.exports = function Mimoza(options) {
 
 
 /**
- *  Mimoza#define(map) -> Void
+ *  Mimoza#clone() -> Object
  *
- *  Batch version of [[Mimoza#register]].
- *
- *  ##### Example
- *
- *  ```javascript
- *  mime.define({
- *    'audio/ogg':  ['oga', 'ogg', 'spx'],
- *    'audio/webm': ['weba']
- *  });
- *
- *  // equals to:
- *
- *  mime.register('audio/ogg', ['oga', 'ogg', 'spx']);
- *  mime.register('audio/webm', ['weba']);
- *  ```
+ *  Creates copy of current Mimoza instanse
  **/
-Mimoza.prototype.define = function define(map) {
-  Object.getOwnPropertyNames(map).forEach(function (type) {
-    this.register(type, map[type]);
-  }, this);
+Mimoza.prototype.clone = function clone() {
+  var m = new Mimoza({ defaultType: this.defaultType });
+
+  assign(m.types, this.types);
+  assign(m.extensions, this.extensions);
+  assign(m.compressibles, this.compressibles);
+
+  return m;
 };
 
 
@@ -139,10 +144,6 @@ Mimoza.prototype.define = function define(map) {
  **/
 Mimoza.prototype.register = function register(mimeType, extensions, overrideDefault) {
   extensions = Array.isArray(extensions) ? extensions : [ extensions ];
-
-  if (!mimeType || !extensions || extensions.length === 0) {
-    return;
-  }
 
   // pollute `extension -> mimeType` map
   extensions.forEach(function (ext) {

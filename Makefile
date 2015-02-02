@@ -73,9 +73,5 @@ publish: browserify
 	npm publish ${GITHUB_PROJ}/tarball/${NPM_VERSION}
 
 
-todo:
-	grep 'TODO' -n -r ./lib 2>/dev/null || test true
-
-
-.PHONY: publish lint test doc dev-deps gh-pages todo
+.PHONY: publish lint test doc gh-pages coverage
 .SILENT: help lint test doc todo

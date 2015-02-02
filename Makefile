@@ -61,10 +61,6 @@ browserify:
 	uglifyjs mimoza_browser.js -c -m \
 		--preamble "/* ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} */" \
 		-o mimoza_browser.min.js
-	# Update bower package
-	sed -i -r -e \
-		"s/(\"version\":\s*)\"[0-9]+[.][0-9]+[.][0-9]+\"/\1\"${NPM_VERSION}\"/" \
-		bower.json
 
 
 doc:

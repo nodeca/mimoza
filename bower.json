@@ -1,7 +1,6 @@
 {
   "name": "mimoza",
   "main": "mimoza-browser.js",
-  "version": "0.3.0",
   "homepage": "https://github.com/nodeca/mimoza",
   "authors": [
     "Aleksey V Zapparov <ixti@member.fsf.org>",

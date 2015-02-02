@@ -1,6 +1,6 @@
 benchmark/
 coverage/
-docs/
+doc/
 test/
 Makefile
 .*

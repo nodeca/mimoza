@@ -12,7 +12,7 @@ var db = require('mime-db');
 //   normalize('js')          // -> '.js'
 function normalize(path) {
   // edge case: '/txt' & '\txt' are not resolveable
-  if (/[\\/][^\\/.]+$/.test(path)) { return; }
+  if (/[\\/][^\\/.]+$/.test(path)) { return ''; }
 
   return '.' + path.replace(/.*[\.\/\\]/, '').toLowerCase();
 }
@@ -20,7 +20,7 @@ function normalize(path) {
 // Remove charset/types/spaces, convenent for external data check
 // " tExt/htMl ; charset=UTF-8 ; type=foo " -> "text/html"
 function clearMime(mimeType) {
-  if (!mimeType || (String(mimeType) !== mimeType)) { return undefined; }
+  if (!mimeType || (String(mimeType) !== mimeType)) { return null; }
   return mimeType.split(';')[0].trim().toLowerCase();
 }
 
@@ -138,9 +138,9 @@ Mimoza.prototype.define = function define(map) {
  *  ```
  **/
 Mimoza.prototype.register = function register(mimeType, extensions, overrideDefault) {
-  extensions = Array.isArray(extensions) ? extensions : [extensions];
+  extensions = Array.isArray(extensions) ? extensions : [ extensions ];
 
-  if (!mimeType || !extensions || 0 === extensions.length) {
+  if (!mimeType || !extensions || extensions.length === 0) {
     return;
   }
 
@@ -150,7 +150,7 @@ Mimoza.prototype.register = function register(mimeType, extensions, overrideDefa
   }, this);
 
   // use case insensitive mime types for extention resolve
-  if (overrideDefault || undefined === this.extensions[mimeType.toLowerCase()]) {
+  if (overrideDefault || typeof this.extensions[mimeType.toLowerCase()] === 'undefined') {
     this.extensions[mimeType.toLowerCase()] = normalize(extensions[0]);
   }
 };

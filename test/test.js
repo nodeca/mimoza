@@ -9,6 +9,8 @@ var assert  = require('assert');
 var Mimoza  = require('../');
 var eq      = assert.strictEqual;
 
+/*eslint-disable no-undefined*/
+
 describe('defaults', function () {
 
   var m = Mimoza;
@@ -70,7 +72,7 @@ describe('custom instance', function () {
 
   var m = new Mimoza({ defaultType:  'hard/core' });
 
-  m.register('foo/bar', ['baz', 'moo']);
+  m.register('foo/bar', [ 'baz', 'moo' ]);
 
 
   it('resolve registered', function () {

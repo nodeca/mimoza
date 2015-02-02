@@ -1,5 +1,3 @@
-PATH        := ./node_modules/.bin:${PATH}
-
 NPM_PACKAGE := $(shell node -e 'process.stdout.write(require("./package.json").name)')
 NPM_VERSION := $(shell node -e 'process.stdout.write(require("./package.json").version)')
 
@@ -12,60 +10,35 @@ CURR_HEAD   := $(firstword $(shell git show-ref --hash HEAD | cut --bytes=-6) ma
 GITHUB_PROJ := https://github.com/nodeca/${NPM_PACKAGE}
 
 
-help:
-	echo "make help       - Print this help"
-	echo "make lint       - Lint sources with JSHint"
-	echo "make test       - Lint sources and run all tests"
-	echo "make doc        - Build API docs"
-	echo "make dev-deps   - Install developer dependencies"
-	echo "make gh-pages   - Build and push API docs into gh-pages branch"
-	echo "make publish    - Set new version tag and publish npm package"
-	echo "make todo       - Find and list all TODOs"
-
-
 lint:
-	if test ! `which jshint` ; then \
-		echo "You need 'jshint' installed in order to run lint." >&2 ; \
-		echo "  $ make dev-deps" >&2 ; \
-		exit 128 ; \
-		fi
-	jshint . --show-non-errors
+	./node_modules/.bin/eslint --reset .
 
 
 test: lint
-	mocha
+	./node_modules/.bin/mocha
+
+
+coverage:
+	rm -rf coverage
+	./node_modules/.bin/istanbul cover node_modules/.bin/_mocha
 
 
 browserify:
+	rm -rf ./dist
+	mkdir dist
 	# Browserify
-	( echo -n "/* ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} */" ; \
+	( printf "/*! ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} @license MIT */" ; \
 		browserify -r ./ -s Mimoza \
-		) > mimoza_browser.js
+		) > dist/mimoza.js
 	# Minify
-	uglifyjs mimoza_browser.js -c -m \
+	uglifyjs dist/mimoza.js -c -m \
 		--preamble "/* ${NPM_PACKAGE} ${NPM_VERSION} ${GITHUB_PROJ} */" \
-		-o mimoza_browser.min.js
+		-o dist/mimoza.min.js
 
 
 doc:
-	@if test ! `which ndoc` ; then \
-		echo "You need 'ndoc' installed in order to generate docs." >&2 ; \
-		echo "  $ make dev-deps" >&2 ; \
-		exit 128 ; \
-		fi
 	rm -rf ./doc
 	ndoc --link-format "{package.homepage}/blob/${CURR_HEAD}/{file}#L{line}"
-
-
-dev-deps:
-	@if test ! `which npm` ; then \
-		echo "You need 'npm' installed." >&2 ; \
-		echo "  See: http://npmjs.org/" >&2 ; \
-		exit 128 ; \
-		fi
-	which jshint > /dev/null || npm install jshint
-	which ndoc > /dev/null || npm install ndoc
-	npm install
 
 
 gh-pages:

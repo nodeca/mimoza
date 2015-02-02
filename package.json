@@ -17,7 +17,16 @@
   "dependencies": {
     "mime-db": "^1.6.0"
   },
+  "scripts": {
+    "test": "make test"
+  },
   "devDependencies": {
-    "mocha": "*"
+    "browserify": "*",
+    "eslint": "0.13.0",
+    "eslint-plugin-nodeca": "^1.0.1",
+    "istanbul": "*",
+    "mocha": "*",
+    "ndoc": "~3.1.0",
+    "uglify-js": "*"
   }
 }

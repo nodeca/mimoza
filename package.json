@@ -1,27 +1,24 @@
 {
-  "name"            : "mimoza",
-  "version"         : "0.3.0",
-  "description"     : "Simple mime-types tools library",
-  "keywords"        : ["mime"],
-  "homepage"        : "https://github.com/nodeca/mimoza",
-
-  "author"          : "Aleksey V Zapparov <ixti@member.fsf.org> (http://ixti.net/)",
-  "contributors"    : [
-                        "Vitaly Puzrin <vitaly@rcdesign.ru> (https://github.com/puzrin)",
-                        "Robert Kieffer <robert@broofa.com> (https://github.com/broofa)",
-                        "Benjamin Thomas <benjamin@benjaminthomas.org> (https://github.com/bentomas)"
-                      ],
-
-  "bugs"            : { "url": "https://github.com/nodeca/mimoza/issues" },
-  "license"         : { "type": "MIT", "url": "https://github.com/nodeca/mimoza/blob/master/LICENSE" },
-  "repository"      : { "type": "git", "url": "git://github.com/nodeca/mimoza.git" },
-
-  "main"            : "./lib/mimoza.js",
-
-  "devDependencies" : {
-                        "mocha"   : "*"
-                      },
-  "browser"         : {
-                        "./lib/rules.js": "./lib/rules_browser.js"
-                      }
+  "name": "mimoza",
+  "version": "0.3.0",
+  "description": "Simple mime-types tools library",
+  "keywords": [
+    "mime"
+  ],
+  "homepage": "https://github.com/nodeca/mimoza",
+  "author": "Aleksey V Zapparov <ixti@member.fsf.org> (http://ixti.net/)",
+  "contributors": [
+    "Vitaly Puzrin <vitaly@rcdesign.ru> (https://github.com/puzrin)",
+    "Robert Kieffer <robert@broofa.com> (https://github.com/broofa)",
+    "Benjamin Thomas <benjamin@benjaminthomas.org> (https://github.com/bentomas)"
+  ],
+  "license": "MIT",
+  "repository": "nodeca/mimoza",
+  "main": "./lib/mimoza.js",
+  "dependencies": {
+    "mime-db": "^1.6.0"
+  },
+  "devDependencies": {
+    "mocha": "*"
+  }
 }

@@ -5,8 +5,6 @@
 
 
 var assert  = require('assert');
-var path    = require('path');
-var fs      = require('fs');
 
 var Mimoza  = require('../lib/mimoza');
 var eq      = assert.strictEqual;
@@ -139,41 +137,6 @@ describe('text detect', function () {
     eq(true, m.isText('application/javascript'));
     eq(true, m.isText('application/json'));
     eq(false, m.isText('application/octet-stream'));
-  });
-
-});
-
-
-describe('integrity check', function () {
-
-  var m = Mimoza;
-
-  it('apache.types & note.types extentions should not overlap', function () {
-    var apacheTypes = new Mimoza()
-      , nodeTypes = new Mimoza()
-      , validExtOverrides = ['.otf'];
-
-    apacheTypes.loadMimes(fs.readFileSync(path.join(__dirname, '../types/mime.types'), 'ascii'));
-    nodeTypes.loadMimes(fs.readFileSync(path.join(__dirname, '../types/node.types'), 'ascii'));
-
-    var keys = [].concat(Object.keys(apacheTypes.types))
-                 .concat(Object.keys(nodeTypes.types));
-    keys.sort();
-
-    for (var i = 1; i < keys.length; i++) {
-      if (keys[i] === keys[i-1]) {
-        assert.notEqual(-1, validExtOverrides.indexOf(keys[i]),
-          '`' + keys[i] + '` from `mime.types` is overriden in `node.types`! Remove duplicated definitions.'
-        );
-      }
-    }
-  });
-
-
-  it('text/cache-manifest should be merged', function () {
-    eq('text/cache-manifest', m.getMimeType('appcache'));
-    eq('text/cache-manifest', m.getMimeType('manifest'));
-    eq('.appcache', m.getExtension('text/cache-manifest'));
   });
 
 });

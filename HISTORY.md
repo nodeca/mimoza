@@ -1,4 +1,4 @@
-1.0.0 / WIP
+1.0.0 / 2015-02-03
 ------------------
 
 - Use `mime-db` instead of local text files.
@@ -7,7 +7,8 @@
   - `loadCompressibles()`
   - `define()`
   - `isCompressible()` (use `compressible` package instead)
-- Massive code cleanup
+- Added `clone()` method.
+- Massive code cleanup.
 - Improved tests coverage.
 
 

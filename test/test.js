@@ -109,18 +109,6 @@ describe('types check', function () {
 });
 
 
-describe('compressibles', function () {
-  var m = Mimoza;
-
-  it('resolve compressible mimes', function () {
-    eq(true, m.isCompressible('text/html'));
-    eq(true, m.isCompressible(' text/hTml; charset=UTF-8 '));
-    eq(true, m.isCompressible('application/javascript'));
-    eq(false, m.isCompressible('application/octet-stream'));
-  });
-});
-
-
 describe('text detect', function () {
   var m = Mimoza;
 
@@ -143,7 +131,7 @@ describe('Misc', function () {
 
     eq(m2.defaultType, 'qwerty/uiop');
     eq(m2.isText('text/html'), true);
-    eq(m2.isCompressible('application/javascript'), true);
+    eq(m2.getExtension('application/javascript'), '.js');
     eq(m2.getMimeType('file.otf'), 'font/opentype');
   });
 

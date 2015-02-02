@@ -2,7 +2,10 @@
 ------------------
 
 - Use `mime-db` instead of local text files.
-- Removed `load*` and `define()` methods.
+- Removed methods:
+  - `load*`
+  - `define()`
+  - `isCompressible` (use `compressible` package)
 - Massive code cleanup
 - Improved tests coverage.
 

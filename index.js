@@ -64,9 +64,6 @@ var Mimoza = module.exports = function Mimoza(options) {
   // Map of `mimeType -> extensions` pairs.
   Object.defineProperty(this, 'extensions',     { value: Object.create(null) });
 
-  // Map of `mimeType` -> true for compressible types
-  Object.defineProperty(this, 'compressibles',  { value: Object.create(null) });
-
   // Used as last-resort for [[Mimoza#getMimeType]].
   Object.defineProperty(this, 'defaultType',    { value: options.defaultType });
 
@@ -77,10 +74,6 @@ var Mimoza = module.exports = function Mimoza(options) {
 
       if (val.extensions) {
         this.register(mime, val.extensions);
-      }
-
-      if (val.compressible) {
-        this.compressibles[mime] = true;
       }
     }, this);
   }
@@ -97,7 +90,6 @@ Mimoza.prototype.clone = function clone() {
 
   assign(m.types, this.types);
   assign(m.extensions, this.extensions);
-  assign(m.compressibles, this.compressibles);
 
   return m;
 };
@@ -177,16 +169,6 @@ Mimoza.prototype.getExtension = function getExtension(mimeType) {
 };
 
 
-/**
- *  Mimoza#isCompressible(mimeType) -> Boolean
- *
- *  Check if mime type is compressible with gzip/deflate.
- **/
-Mimoza.prototype.isCompressible = function isCompressible(mimeType) {
-  return !!this.compressibles[clearMime(mimeType)];
-};
-
-
 // Returns whenever an asset is text or not
 var TEXT_MIME_RE = new RegExp([
   '^text/',
@@ -235,21 +217,11 @@ Mimoza.getExtension = function _getExtension(mimeType) {
 };
 
 /**
- *  Mimoza.isCompressible(mimeType) -> Boolean
- *
- *  Proxy to [[Mimoza#isCompressible]] of internal, built-in instance
- *  of [[Mimoza]] filled with some default types.
- **/
-Mimoza.isCompressible = function _isCompressible(mimeType) {
-  return builtin.isCompressible(mimeType);
-};
-
-/**
  *  Mimoza.isText(mimeType) -> Boolean
  *
  *  Proxy to [[Mimoza#isText]] of internal, built-in instance
  *  of [[Mimoza]].
  **/
-Mimoza.isText = function _isCompressibleExtention(mimeType) {
+Mimoza.isText = function _isText(mimeType) {
   return builtin.isText(mimeType);
 };

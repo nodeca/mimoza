@@ -3,9 +3,10 @@
 
 - Use `mime-db` instead of local text files.
 - Removed methods:
-  - `load*`
+  - `loadMimes()`
+  - `loadCompressibles()`
   - `define()`
-  - `isCompressible` (use `compressible` package)
+  - `isCompressible()` (use `compressible` package instead)
 - Massive code cleanup
 - Improved tests coverage.
 

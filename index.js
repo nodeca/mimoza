@@ -35,7 +35,7 @@ function normalize(path) {
 // Remove charset/types/spaces, convenent for external data check
 // " tExt/htMl ; charset=UTF-8 ; type=foo " -> "text/html"
 function clearMime(mimeType) {
-  if (!mimeType || (String(mimeType) !== mimeType)) { return null; }
+  if (!mimeType || (String(mimeType) !== mimeType)) { return ''; }
   return mimeType.split(';')[0].trim().toLowerCase();
 }
 

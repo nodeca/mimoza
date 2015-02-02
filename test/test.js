@@ -6,7 +6,7 @@
 
 var assert  = require('assert');
 
-var Mimoza  = require('../lib/mimoza');
+var Mimoza  = require('../');
 var eq      = assert.strictEqual;
 
 describe('defaults', function () {

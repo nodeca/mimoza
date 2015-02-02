@@ -1,3 +1,12 @@
+1.0.0 / WIP
+------------------
+
+- Use `mime-db` instead of local text files.
+- Removed `load*` and `define()` methods.
+- Massive code cleanup
+- Improved tests coverage.
+
+
 0.3.0 / 2013-12-24
 ------------------
 

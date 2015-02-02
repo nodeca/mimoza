@@ -1,6 +1,9 @@
 # Mimoza
 
-[![Build Status](https://secure.travis-ci.org/nodeca/mimoza.png?branch=master)](http://travis-ci.org/nodeca/mimoza)
+[![Build Status](https://img.shields.io/travis/nodeca/mimoza/master.svg?style=flat)](https://travis-ci.org/nodeca/mimoza)
+[![NPM version](https://img.shields.io/npm/v/mimoza.svg?style=flat)](https://www.npmjs.org/package/mimoza)
+[![Coverage Status](https://img.shields.io/coveralls/nodeca/mimoza/master.svg?style=flat)](https://coveralls.io/r/nodeca/mimoza?branch=master)
+
 
 Mimoza is a tiny but comprehensive MIME tools library. Features:
 
